@@ -9,6 +9,13 @@ class Attribute:
         self.type = type
 
     @staticmethod
+    def find_req(attribute_dict):
+        required_att=[]
+        for a in attribute_dict:
+            if re.search(r'Required', a.description):
+                required_att.append(a)
+        return required_att
+    @staticmethod
     def remove_required(a, b):
         new_list = [i for i in a if i not in b]
         return new_list
@@ -26,12 +33,11 @@ class Attribute:
         return rules_shall
 
     @staticmethod
-    #TODO method so that the string captured is until a line break
     def clean_note(attribute_dict):
         attributes_no_note = attribute_dict
         for i in range(len(attribute_dict)):
             txt = attribute_dict[i].description
-            note = re.findall(r'(Note:)+(?:Required)|(?:Shall)|(Note:.*)', txt)
-            if len(note):
-                attributes_no_note[i].description = txt.replace(note[0][1], '')
+            note = re.search(r'(Note:.*)+(.+?(?=Required))|(.+?(?=Shall))|(.+?(?=\n))', txt)
+            if note:
+                attributes_no_note[i].description = txt.replace(note.group(), '')
         return attributes_no_note
