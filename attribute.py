@@ -23,8 +23,8 @@ class Attribute:
     def get_section(description):
         s = description
         # Match until the end of the sentence
-        section = re.search('(See Section)(([^\\)]*[)][^.]*[.])|([^\\)]*[))])|([^\\)]*[)][^.]*$))',
-                            description, re.IGNORECASE)
+        section = re.search('(See Section)(([^\\)]*[)][^.]*[.])|([^\\)]*[)][^\\)]*[\\)][.])|'
+                            '([^\\)]*[))])|([^\\)]*[)][^.]*$))', description, re.IGNORECASE)
         if section:
             s = description.replace(section.group(), '')
         return s
@@ -48,7 +48,7 @@ class Attribute:
     @staticmethod
     def get_num_items_present(description):
         p = description
-        num = re.search('(One or more items shall be)|(zero or more items shall be)', description, re.IGNORECASE)
+        num = re.search('(One|zero)( or )(one|more)( items shall be)[^.*]*[.]', description, re.IGNORECASE)
         if num:
             p = description.replace(num.group(), '')
         return p
@@ -60,10 +60,13 @@ class Attribute:
     def get_rule_class(description):
         r = description
         # Search for Required/shall until enumerated values or until the end of the sentence
-        req = re.search('((Required)((.*(Enumerated values).*$)|.*(Section).*$|[^.*]*[.]))', description)
-        shall = re.search('((Shall)((.*(Enumerated values).*$)|.*(Section).*$|[^.*]*[.]))', description, re.IGNORECASE)
+        req = re.search('((Required)((.*(Enumerated Values).*$)|[^.]*[.]\\s|[^.]*$|.*[.]$))', description)
+        if_req = re.search('(if required).*(shall)[^.]*[.]', description, re.IGNORECASE)
+        shall = re.search('((Shall)((.*(Enumerated values).*$)|[^.]*[.]\\s|[^.]*$|.*[.]$))', description, re.IGNORECASE)
         if req:
             r = req.group()
+        elif if_req:
+            r = if_req.group()
         elif shall:
             r = shall.group()
         return r
