@@ -57,6 +57,17 @@ class Attribute:
         self.description = self.get_num_items_present(self.description)
 
     @staticmethod
+    def get_enumerated_values(description):
+        e = description
+        val = re.search('((\\.\\s|(\\.\\s\\s))(Enumerated Values).*$)', description)
+        if val:
+            e = description.replace(val.group(), '')
+        return e
+
+    def clean_enumerated_values(self):
+        self.description = self.get_enumerated_values(self.description)
+
+    @staticmethod
     def get_rule_class(description):
         r = description
         # Search for Required/shall until enumerated values or until the end of the sentence
