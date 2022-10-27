@@ -80,6 +80,8 @@ class Attribute:
             r = if_req.group()
         elif shall:
             r = shall.group()
+        else:
+            print('WARNING: NO MATCH', description)
         return r
 
     def set_only_rule_def(self):
