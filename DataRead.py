@@ -5,6 +5,7 @@ from allennlp.data import DatasetReader, Instance
 from allennlp.data.fields import Field, LabelField, TextField, ListField, MultiLabelField
 from allennlp.data.token_indexers import TokenIndexer, SingleIdTokenIndexer
 from allennlp.data.tokenizers import Token, Tokenizer, WhitespaceTokenizer
+import numpy as np
 
 
 @DatasetReader.register('labelledData')
@@ -41,11 +42,11 @@ class LabelledData(DatasetReader):
 
     @staticmethod
     def clean_labels(list_labels):
-        empty = ' '
+        labels = []
         for lab in list_labels:
-            if lab == empty:
-                list_labels.remove(lab)
-        return list_labels
+            if lab.__class__ == str:
+                labels.append(lab)
+        return labels
 
     def _read(self, file_path: str) -> Iterable[Instance]:
         # with open(file_path, 'r') as lines:
@@ -65,6 +66,5 @@ class LabelledData(DatasetReader):
                                    self.token_indexers)
 
             fields = {'text': text_field}
-
             fields['labels'] = MultiLabelField(self.clean_labels(list(lines.iloc[line, 1:])))
             yield Instance(fields)
