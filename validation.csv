@@ -1,0 +1,24 @@
+﻿Attribute description,AttVal,AttValNot,AttPres,ReqIfAttNotPres,NotReqIfAttPres,Txt
+Required if the conditions in Section C.36.2.2.5.1.1 (PS3.3:sect_C.36.2.2.5.1.1) are satisfied.,,,,,,Txt
+"Required if Cardiac Synchronization Technique (0018,9037) equals PROSPECTIVE or RETROSPECTIVE.",AttVal,,,,,
+"Required if Instruction Performed Flag (0018,9918) is present with a value of YES.",AttVal,,AttPres,,,
+"Required if the value of Image Box Layout Type (0072,0304) is TILED, and the value of Image Box Tile Horizontal Dimension (0072,0306) or Image Box Tile Vertical Dimension (0072,0308) is greater than 1. Scrolling is not specified if zero length ",AttVal,,,,,
+"Required if coding scheme is registered and Coding Scheme UID (0008,010C) is not present.",,,,ReqIfAttNotPres,,
+Required if Group 60xx is present in the referenced image(s) or the Presentation State instance containing this Module. ,"Required if Referenced Presentation State Sequence (0008,9237), Referenced Stereometric Instance Sequence (0008,1134), and Referenced Instance Sequence (0008,114A) are not present.  ",,AttPres,ReqIfAttNotPres,,
+"Required if Positioner Type (0018,1508) equals CARM and C-arm Positioner Tabletop Relationship (0018,9474) equals YES.",AttVal,,,,,
+"Required if Ophthalmic Volumetric Properties Flag (0022,1622) is set to YES and Attributes Ophthalmic Anatomic Reference Point X-Coordinate (0022,1624) and Ophthalmic Anatomic Reference Point Y-Coordinate (0022,1626) do not contain a value.  ",AttVal,,,ReqIfAttNotPres,,
+"Required if Beam Task Type (0074,1022) is VERIFY or VERIFY_AND_TREAT. ",AttVal,,,,,
+"Required for first Item of Control Point Sequence, or if Table Top Roll Rotation Direction changes during Beam. 8.8.25.6.2 (PS3.3:sect_C.8.8.25.6.2) ",,,,,,Txt
+"Required for first Item of Control Point Sequence, or if Gantry Pitch Rotation Direction changes during Beam. 8.8.25.6.5 (PS3.3:sect_C.8.8.25.6.5) ",,,,,,Txt
+"Required for Control Point 0 of Control Point Delivery Sequence (3008,0040) or if Table Top Vertical Position changes during beam administration.",,,,,,Txt
+"Required if Source Applicator Number (300A,0290) is present.",,,AttPres,,,
+"Required if Material ID (300A,00E1) is zero length. ",,,,ReqIfAttNotPres,,
+"Required if Material ID (300A,00E1) is non-zero length. ",,,AttPres,,,
+"Required if Number of Compensators (300A,00E0) is non-zero.",,,AttPres,,,
+"Required if the Frame Increment Pointer (0028,0009) contains the Tag for R-R Interval Vector (0054,0060).",,,AttPres,,,
+"Required if Image Type (0008,0008) Value 1 is ORIGINAL or MIXED and Cardiac Synchronization Technique (0018,9037) equals other than NONE. ",AttVal,AttValNot,,,,
+"Required if the Frame Increment Pointer (0028,0009) contains the Tag for R-R Interval Vector (0054,0060).",,,AttPres,,,
+"Required if Image Type (0008,0008) Value 4 is TRANSMISSION and Value 3 is not any of TOMO, GATED TOMO, RECON TOMO or RECON GATED TOMO.",AttVal,AttValNot,,,,
+Required if the Patient is an animal. ,,,,,,Txt
+"Shall not be present when Two Dimensional to Three Dimensional Map Sequence (0022,1518) or X Coordinates Center Pixel View Angle (0022,1528) and Y Coordinates Center Pixel View Angle (0022,1529) are present. ",,,,,NotReqIfAttPres,
+Required if Annotation does not apply to entire Referenced Waveform Channels; shall not be present if Annotation applies to entire temporal extent of referenced channels,,,,,NotReqIfAttPres,Txt
